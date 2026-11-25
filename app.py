@@ -122,7 +122,9 @@ with st.sidebar:
                 splitter = RecursiveTextSplitter(chunk_size=500, chunk_overlap=50)
                 chunks = splitter.split_text(raw_text)
                 
-                qdrant_client.recreate_collection(
+                if qdrant_client.collection_exists(COLLECTION_NAME):
+                    qdrant_client.delete_collection(COLLECTION_NAME)
+                qdrant_client.create_collection(
                     collection_name=COLLECTION_NAME,
                     vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
                 )
@@ -151,6 +153,10 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 if prompt := st.chat_input("Sorunuzu buraya yazın..."):
+    if not qdrant_client.collection_exists(COLLECTION_NAME):
+        st.warning("Önce sol menüden bir PDF yükleyin.")
+        st.stop()
+
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -182,7 +188,7 @@ if prompt := st.chat_input("Sorunuzu buraya yazın..."):
             )
             
             for chunk in stream:
-                if chunk.choices[0].delta.content is not None:
+                if chunk.choices and chunk.choices[0].delta.content is not None:
                     full_response += chunk.choices[0].delta.content
                     message_placeholder.markdown(full_response + "▌")
             
