@@ -1,10 +1,10 @@
 # Simple RAG Template
 
-A minimal retrieval-augmented generation (RAG) application for answering questions about a PDF with a local LLM. It was written as teaching material: the whole pipeline is a single file, `app.py`, and uses no orchestration framework, so every step can be read and modified directly.
+A minimal retrieval-augmented generation (RAG) application for answering questions about a PDF with a local LLM. It was written as teaching material: the whole pipeline is a single monolithic file, `app.py`, with a basic ETL step for ingestion and no orchestration framework, so every step can be read and modified directly.
 
 ## Pipeline
 
-**Ingestion**
+**Ingestion (ETL)**
 
 1. Text is extracted from the uploaded PDF with pdfplumber.
 2. A recursive splitter (paragraph, then sentence, then word boundaries) produces chunks of about 500 characters with a 50-character overlap.
