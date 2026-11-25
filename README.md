@@ -1,6 +1,6 @@
 # Simple RAG Template
 
-A minimal retrieval-augmented generation (RAG) application for answering questions about a PDF with a local LLM. It was written as teaching material: the whole pipeline is a single monolithic file, `app.py`, with a basic ETL step for ingestion and no orchestration framework, so every step can be read and modified directly.
+A minimal retrieval-augmented generation (RAG) application for answering questions about a PDF with a local LLM. It was prepared at the instructor's request as teaching material for the Decision Support Systems course at Süleyman Demirel University. For that reason the whole pipeline is a single monolithic file, `app.py`, with a basic ETL step for ingestion and no orchestration framework, so every step can be read and modified directly.
 
 ## Pipeline
 
@@ -37,6 +37,6 @@ Upload a PDF from the sidebar, index it, then ask questions in the chat. The int
 
 ## Scope
 
-This is a teaching template rather than a production system. It indexes one document at a time (a new upload replaces the collection) and does not implement reranking, hybrid search or source citations.
+This is a teaching template, intentionally kept simple for classroom use, rather than a production system. It indexes one document at a time (a new upload replaces the collection) and does not implement reranking, hybrid search or source citations.
 
 `docs/rag.pdf` is a survey paper on RAG (Gupta, Ranjan and Singh) used as background reading and as a sample document.
